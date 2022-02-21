@@ -70,6 +70,25 @@ test_ ## testnum: \
     VMVXS_AND_MASK_VSEW( x14, testreg ) \
     bne x14, x7, fail;
 
+#define TEST_CASE_MEM( testnum, testreg, correctval, eewmem, code... ) \
+test_ ## testnum: \
+    code; \
+    li x7, MASK_VSEW(correctval); \
+    li TESTNUM, testnum; \
+    VMVXS_AND_MASK_EEW( x14, testreg, eewmem ) \
+    bne x14, x7, fail;
+
+#define TEST_CASE_FP_FLAG( testnum, testreg, correctval, flags, code... ) \
+test_ ## testnum: \
+    code; \
+    li x7, MASK_VSEW(correctval); \
+    li TESTNUM, testnum; \
+    fsflags a1, x0; \
+    li a2, flags; \
+    bne a1, a2, fail; \
+    VMVXS_AND_MASK_VSEW( x14, testreg ) \
+    bne x14, x7, fail;
+
 #define TEST_CASE_W( testnum, testreg, correctval, code... ) \
 test_ ## testnum: \
     code; \
@@ -841,15 +860,11 @@ test_ ## testnum: \
     inst v14, v2; \
   )
 
-# TEST_CASE wont check flags so check here
 #define TEST_FP_HEX_1OPERAND_OP( testnum, inst, flags, result, val ) \
-  TEST_CASE( testnum, v14, result, \
+  TEST_CASE_FP_FLAG( testnum, v14, result, flags, \
     li x7, MASK_VSEW(val); \
     vmv.v.x v1, x7; \
     inst v14, v1; \
-    fsflags a1, x0; \
-    li a2, flags; \
-    bne a1, a2, fail; \
   )
 
 #define TEST_VVM_OP( testnum, inst, result, val1, val2 ) \
@@ -971,7 +986,7 @@ test_ ## testnum: \
   )
 
 #define TEST_VLSEG1_OP( testnum, inst, eew, result, base ) \
-  TEST_CASE( testnum, v14, result,  \
+  TEST_CASE_MEM( testnum, v14, result, eew,  \
     la  x1, base; \
     inst v14, (x1); \
   )
@@ -1035,7 +1050,7 @@ test_ ## testnum: \
 
 
 #define TEST_VSSEG1_OP( testnum, load_inst, store_inst, eew, result, base ) \
-  TEST_CASE( testnum, v14, result,  \
+  TEST_CASE_MEM( testnum, v14, result, eew,  \
     la  x1, base; \
     li x7, MASK_EEW(result, eew); \
     vsetivli x31, 1, MK_EEW(eew), tu, mu; \
@@ -1062,7 +1077,7 @@ test_ ## testnum: \
   )
 
 #define TEST_VSSSEG1_OP( testnum, load_inst, store_inst, eew, result, stride, base ) \
-  TEST_CASE( testnum, v14, result,  \
+  TEST_CASE_MEM( testnum, v14, result, eew,  \
     la  x1, base; \
     li  x2, stride; \
     li x7, MASK_EEW(result, eew); \
@@ -1100,7 +1115,7 @@ test_ ## testnum: \
   )
 
 #define TEST_VSSE_OP( testnum, load_inst, store_inst, eew, result, stride, base ) \
-  TEST_CASE( testnum, v14, result, \
+  TEST_CASE_MEM( testnum, v14, result, eew, \
     la  x1, base; \
     li  x2, stride; \
     li  x3, result; \
@@ -1112,7 +1127,7 @@ test_ ## testnum: \
   )
 
 #define TEST_VSE_OP( testnum, load_inst, store_inst, eew, result, base ) \
-  TEST_CASE( testnum, v14, result, \
+  TEST_CASE_MEM( testnum, v14, result, eew, \
     la  x1, base; \
     li  x3, result; \
     vsetivli x31, 1, MK_EEW(eew), tu, mu; \
