@@ -101,6 +101,7 @@ test_ ## testnum: \
 
 #define TEST_CASE_MASK( testnum, testreg, correctval, code... ) \
 test_ ## testnum: \
+    vmv.v.x testreg, x0; \
     code; \
     li x7, correctval; \
     li TESTNUM, testnum; \
@@ -109,6 +110,7 @@ test_ ## testnum: \
 
 #define TEST_CASE_MASK_4VL( testnum, testreg, correctval, code... ) \
 test_ ## testnum: \
+    vmv.v.x testreg, x0; \
     code; \
     li x7, correctval; \
     li TESTNUM, testnum; \
@@ -214,6 +216,10 @@ test_ ## testnum: \
 # For simplicity, all vlseg/vsseg test use 3 fields
 #define TEST_CASE_VLSEG3( testnum, testreg, eew, correctval1, correctval2, correctval3, code... ) \
 test_ ## testnum: \
+    li x7, 0; \
+    vmv.v.x v14, x7; \
+    vmv.v.x v15, x7; \
+    vmv.v.x v16, x7; \
     code; \
     li x7, MASK_EEW(correctval1, eew); \
     li x8, MASK_EEW(correctval2, eew); \
@@ -646,6 +652,19 @@ test_ ## testnum: \
     inst v14, v1, v2; \
   )
 
+#define TEST_W_WV_RED_OP_WITH_INIT( testnum, inst, result, val1, val2 ) \
+  TEST_CASE_W( testnum, v14, result, \
+    li x7, 0; \
+    VSET_DOUBLE_VSEW \
+    vmv.v.x v14, x7; \
+    li x7, MASK_DOUBLE_VSEW(val2); \
+    vmv.v.x v2, x7; \
+    VSET_VSEW \
+    li x7, MASK_VSEW(val1); \
+    vmv.v.x v1, x7; \
+    inst v14, v1, v2; \
+  )
+
 #define TEST_W_VX_OP( testnum, inst, result, val1, val2 ) \
   TEST_CASE_W( testnum, v14, result, \
     li x7, MASK_VSEW(val1); \
@@ -687,7 +706,9 @@ test_ ## testnum: \
 #define TEST_N_VV_OP( testnum, inst, result, val2, val1 ) \
   TEST_CASE( testnum, v14, MASK_VSEW(result), \
     li x7, SEXT_DOUBLE_VSEW(val2); \
+    VSET_DOUBLE_VSEW \
     vmv.v.x v2, x7; \
+    VSET_VSEW \
     li x7, MASK_VSEW(val1); \
     vmv.v.x v1, x7; \
     inst v14, v2, v1; \
@@ -696,7 +717,9 @@ test_ ## testnum: \
 #define TEST_N_VX_OP( testnum, inst, result, val2, val1 ) \
   TEST_CASE( testnum, v14, MASK_VSEW(result), \
     li x7, SEXT_DOUBLE_VSEW(val2); \
+    VSET_DOUBLE_VSEW \
     vmv.v.x v2, x7; \
+    VSET_VSEW \
     li x1, MASK_VSEW(val1); \
     inst v14, v2, x1; \
   )
@@ -704,7 +727,9 @@ test_ ## testnum: \
 #define TEST_N_VI_OP( testnum, inst, result, val2, val1 ) \
   TEST_CASE( testnum, v14, MASK_VSEW(result), \
     li x7, SEXT_DOUBLE_VSEW(val2); \
+    VSET_DOUBLE_VSEW \
     vmv.v.x v2, x7; \
+    VSET_VSEW \
     inst v14, v2, SEXT_IMM(val1); \
   )
 
@@ -1012,6 +1037,8 @@ test_ ## testnum: \
 
 #define TEST_VLSSEG1_OP( testnum, inst, eew, result, stride, base ) \
   TEST_CASE( testnum, v14, result,  \
+    li x7, 0; \
+    vmv.v.x v14, x7; \
     la  x1, base; \
     li  x2, stride; \
     inst v14, (x1), x2; \

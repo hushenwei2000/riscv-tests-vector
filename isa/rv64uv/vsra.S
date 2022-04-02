@@ -79,15 +79,17 @@ RVTEST_VSET
 
 #if __riscv_vsew <= 32
 
+  # Note: Need to put some meaningful data in the upper 32 bits and see if vnsra preserve them, same for vnsrl
+
   #-------------------------------------------------------------
   # WV tests
   #-------------------------------------------------------------
 
   TEST_N_VV_OP( 44, vnsra.wv, 0xffffffff80000000, 0xffffffff80000000, 0  );
-  TEST_N_VV_OP( 45, vnsra.wv, 0xffffffff40000000, 0xffffffff80000000, 1  );
-  TEST_N_VV_OP( 46, vnsra.wv, 0xffffffff01000000, 0xffffffff80000000, 7  );
-  TEST_N_VV_OP( 47, vnsra.wv, 0xffffffff00020000, 0xffffffff80000000, 14 );
-  TEST_N_VV_OP( 48, vnsra.wv, 0xffffffff00000001, 0xffffffff80000001, 31 );
+  TEST_N_VV_OP( 45, vnsra.wv, 0xffffffffc0000000, 0xffffffff80000000, 1  );
+  TEST_N_VV_OP( 46, vnsra.wv, 0xffffffffff000000, 0xffffffff80000000, 7  );
+  TEST_N_VV_OP( 47, vnsra.wv, 0xfffffffffffe0000, 0xffffffff80000000, 14 );
+  TEST_N_VV_OP( 48, vnsra.wv, 0xffffffffffffffff, 0xffffffff80000001, 31 );
 
   TEST_N_VV_OP( 49, vnsra.wv, 0x000000007fffffff, 0x000000007fffffff, 0  );
   TEST_N_VV_OP( 50, vnsra.wv, 0x000000003fffffff, 0x000000007fffffff, 1  );
@@ -96,20 +98,20 @@ RVTEST_VSET
   TEST_N_VV_OP( 53, vnsra.wv, 0x0000000000000000, 0x000000007fffffff, 31 );
 
   TEST_N_VV_OP( 54, vnsra.wv, 0xffffffff81818181, 0xffffffff81818181, 0  );
-  TEST_N_VV_OP( 55, vnsra.wv, 0xffffffff40c0c0c0, 0xffffffff81818181, 1  );
-  TEST_N_VV_OP( 56, vnsra.wv, 0xffffffff01030303, 0xffffffff81818181, 7  );
-  TEST_N_VV_OP( 57, vnsra.wv, 0xffffffff00020606, 0xffffffff81818181, 14 );
-  TEST_N_VV_OP( 58, vnsra.wv, 0xffffffff00000001, 0xffffffff81818181, 31 );
+  TEST_N_VV_OP( 55, vnsra.wv, 0xffffffffc0c0c0c0, 0xffffffff81818181, 1  );
+  TEST_N_VV_OP( 56, vnsra.wv, 0xffffffffff030303, 0xffffffff81818181, 7  );
+  TEST_N_VV_OP( 57, vnsra.wv, 0xfffffffffffe0606, 0xffffffff81818181, 14 );
+  TEST_N_VV_OP( 58, vnsra.wv, 0xffffffffffffffff, 0xffffffff81818181, 31 );
 
   #-----------------------------------------------------------
   # WX tests
   #-----------------------------------------------------------
 
   TEST_N_VX_OP( 59, vnsra.wx, 0xffffffff80000000, 0xffffffff80000000, 0  );
-  TEST_N_VX_OP( 60, vnsra.wx, 0xffffffff40000000, 0xffffffff80000000, 1  );
-  TEST_N_VX_OP( 61, vnsra.wx, 0xffffffff01000000, 0xffffffff80000000, 7  );
-  TEST_N_VX_OP( 62, vnsra.wx, 0xffffffff00020000, 0xffffffff80000000, 14 );
-  TEST_N_VX_OP( 63, vnsra.wx, 0xffffffff00000001, 0xffffffff80000001, 31 );
+  TEST_N_VX_OP( 60, vnsra.wx, 0xffffffffc0000000, 0xffffffff80000000, 1  );
+  TEST_N_VX_OP( 61, vnsra.wx, 0xffffffffff000000, 0xffffffff80000000, 7  );
+  TEST_N_VX_OP( 62, vnsra.wx, 0xfffffffffffe0000, 0xffffffff80000000, 14 );
+  TEST_N_VX_OP( 63, vnsra.wx, 0xffffffffffffffff, 0xffffffff80000001, 31 );
 	
   TEST_N_VX_OP( 64, vnsra.wx, 0x000000007fffffff, 0x000000007fffffff, 0  );
   TEST_N_VX_OP( 65, vnsra.wx, 0x000000003fffffff, 0x000000007fffffff, 1  );
@@ -118,19 +120,19 @@ RVTEST_VSET
   TEST_N_VX_OP( 68, vnsra.wx, 0x0000000000000000, 0x000000007fffffff, 31 );
 	
   TEST_N_VX_OP( 69, vnsra.wx, 0xffffffff81818181, 0xffffffff81818181, 0  );
-  TEST_N_VX_OP( 70, vnsra.wx, 0xffffffff40c0c0c0, 0xffffffff81818181, 1  );
-  TEST_N_VX_OP( 71, vnsra.wx, 0xffffffff01030303, 0xffffffff81818181, 7  );
-  TEST_N_VX_OP( 72, vnsra.wx, 0xffffffff00020606, 0xffffffff81818181, 14 );
-  TEST_N_VX_OP( 73, vnsra.wx, 0xffffffff00000001, 0xffffffff81818181, 31 );
+  TEST_N_VX_OP( 70, vnsra.wx, 0xffffffffc0c0c0c0, 0xffffffff81818181, 1  );
+  TEST_N_VX_OP( 71, vnsra.wx, 0xffffffffff030303, 0xffffffff81818181, 7  );
+  TEST_N_VX_OP( 72, vnsra.wx, 0xfffffffffffe0606, 0xffffffff81818181, 14 );
+  TEST_N_VX_OP( 73, vnsra.wx, 0xffffffffffffffff, 0xffffffff81818181, 31 );
 
   #-----------------------------------------------------------
   # WI tests
   #-----------------------------------------------------------
 
   TEST_N_VI_OP( 74, vnsra.wi, 0xffffffff80000000, 0xffffffff80000000, 0  );
-  TEST_N_VI_OP( 75, vnsra.wi, 0xffffffff40000000, 0xffffffff80000000, 1  );
-  TEST_N_VI_OP( 76, vnsra.wi, 0xffffffff01000000, 0xffffffff80000000, 7  );
-  TEST_N_VI_OP( 77, vnsra.wi, 0xffffffff00020000, 0xffffffff80000000, 14 );
+  TEST_N_VI_OP( 75, vnsra.wi, 0xffffffffc0000000, 0xffffffff80000000, 1  );
+  TEST_N_VI_OP( 76, vnsra.wi, 0xffffffffff000000, 0xffffffff80000000, 7  );
+  TEST_N_VI_OP( 77, vnsra.wi, 0xfffffffffffe0000, 0xffffffff80000000, 14 );
 	
   TEST_N_VI_OP( 78, vnsra.wi, 0x000000007fffffff, 0x000000007fffffff, 0  );
   TEST_N_VI_OP( 79, vnsra.wi, 0x000000003fffffff, 0x000000007fffffff, 1  );
@@ -138,9 +140,9 @@ RVTEST_VSET
   TEST_N_VI_OP( 81, vnsra.wi, 0x000000000001ffff, 0x000000007fffffff, 14 );
 	
   TEST_N_VI_OP( 82, vnsra.wi, 0xffffffff81818181, 0xffffffff81818181, 0  );
-  TEST_N_VI_OP( 83, vnsra.wi, 0xffffffff40c0c0c0, 0xffffffff81818181, 1  );
-  TEST_N_VI_OP( 84, vnsra.wi, 0xffffffff01030303, 0xffffffff81818181, 7  );
-  TEST_N_VI_OP( 85, vnsra.wi, 0xffffffff00020606, 0xffffffff81818181, 14 );	
+  TEST_N_VI_OP( 83, vnsra.wi, 0xffffffffc0c0c0c0, 0xffffffff81818181, 1  );
+  TEST_N_VI_OP( 84, vnsra.wi, 0xffffffffff030303, 0xffffffff81818181, 7  );
+  TEST_N_VI_OP( 85, vnsra.wi, 0xfffffffffffe0606, 0xffffffff81818181, 14 );	
 	
 #endif
 
