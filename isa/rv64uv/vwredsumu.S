@@ -20,26 +20,26 @@ RVTEST_VSET
   # VX Tests
   #-------------------------------------------------------------
 
-  TEST_W_VV_OP( 2, vwredsumu.vs, 0x00000000, 0x00000000, 0x00000000 );
-  TEST_W_VV_OP( 3, vwredsumu.vs, 0x00000002, 0x00000001, 0x00000001 );
-  TEST_W_VV_OP( 4, vwredsumu.vs, 0x0000000a, 0x00000003, 0x00000007 );
+  TEST_W_WV_RED_OP_WITH_INIT( 2, vwredsumu.vs, 0x00000000, 0x00000000, 0x00000000 );
+  TEST_W_WV_RED_OP_WITH_INIT( 3, vwredsumu.vs, 0x00000002, 0x00000001, 0x00000001 );
+  TEST_W_WV_RED_OP_WITH_INIT( 4, vwredsumu.vs, 0x0000000a, 0x00000003, 0x00000007 );
 
-  TEST_W_VV_OP( 5, vwredsumu.vs, 0x00000000ffff8000, 0x00000000, 0xffff8000 );
-  TEST_W_VV_OP( 6, vwredsumu.vs, 0x0000000080000000, 0x80000000, 0x00000000 );
-  TEST_W_VV_OP( 7, vwredsumu.vs, 0x000000017fff8000, 0x80000000, 0xffff8000 );
+  TEST_W_WV_RED_OP_WITH_INIT( 5, vwredsumu.vs, 0x00000000ffff8000, 0x00000000, 0xffff8000 );
+  TEST_W_WV_RED_OP_WITH_INIT( 6, vwredsumu.vs, 0x0000000080000000, 0x80000000, 0x00000000 );
+  TEST_W_WV_RED_OP_WITH_INIT( 7, vwredsumu.vs, 0x000000017fff8000, 0x80000000, 0xffff8000 );
 
-  TEST_W_VV_OP( 8, vwredsumu.vs, 0x0000000000007fff, 0x00000000, 0x00007fff );
-  TEST_W_VV_OP( 9, vwredsumu.vs, 0x000000007fffffff, 0x7fffffff, 0x00000000 );
-  TEST_W_VV_OP( 10, vwredsumu.vs, 0x0000000080007ffe, 0x7fffffff, 0x00007fff );
+  TEST_W_WV_RED_OP_WITH_INIT( 8, vwredsumu.vs, 0x0000000000007fff, 0x00000000, 0x00007fff );
+  TEST_W_WV_RED_OP_WITH_INIT( 9, vwredsumu.vs, 0x000000007fffffff, 0x7fffffff, 0x00000000 );
+  TEST_W_WV_RED_OP_WITH_INIT( 10, vwredsumu.vs, 0x0000000080007ffe, 0x7fffffff, 0x00007fff );
 
-  TEST_W_VV_OP( 11, vwredsumu.vs, 0x0000000080007fff, 0x80000000, 0x0000000000007fff );
-  TEST_W_VV_OP( 12, vwredsumu.vs, 0x000000017fff7fff, 0x7fffffff, 0xffff8000 );
+  TEST_W_WV_RED_OP_WITH_INIT( 11, vwredsumu.vs, 0x0000000080007fff, 0x80000000, 0x0000000000007fff );
+  TEST_W_WV_RED_OP_WITH_INIT( 12, vwredsumu.vs, 0x000000017fff7fff, 0x7fffffff, 0xffff8000 );
 
-  TEST_W_VV_OP( 13, vwredsumu.vs, 0x00000000ffffffff, 0x00000000, 0xffffffff );
-  TEST_W_VV_OP( 14, vwredsumu.vs, 0x0000000100000000, 0xffffffff, 0x00000001 );
-  TEST_W_VV_OP( 15, vwredsumu.vs, 0x00000001fffffffe, 0xffffffff, 0xffffffff );
+  TEST_W_WV_RED_OP_WITH_INIT( 13, vwredsumu.vs, 0x00000000ffffffff, 0x00000000, 0xffffffff );
+  TEST_W_WV_RED_OP_WITH_INIT( 14, vwredsumu.vs, 0x0000000100000000, 0xffffffff, 0x00000001 );
+  TEST_W_WV_RED_OP_WITH_INIT( 15, vwredsumu.vs, 0x00000001fffffffe, 0xffffffff, 0xffffffff );
 
-  TEST_W_VV_OP( 16, vwredsumu.vs, 0x0000000080000000, 0x0000000000000001, 0x000000007fffffff );
+  TEST_W_WV_RED_OP_WITH_INIT( 16, vwredsumu.vs, 0x0000000080000000, 0x0000000000000001, 0x000000007fffffff );
 	
   
 	

@@ -24,13 +24,13 @@ RVTEST_VSET
   TEST_VI_OP(n, vsrl.vi, ((v) & ((1 << (__riscv_vsew-1) << 1) - 1)) >> (a), v, a)	
 
 #define TEST_SRLWV(n, v, a) \
-  TEST_VV_OP(n, vnsrl.wv, ((v) & ((1 << (__riscv_vsew-1) << 1) - 1)) >> (a), v, a)
+  TEST_N_VV_OP(n, vnsrl.wv, ((v) >> (a)) & ((1 << (__riscv_vsew-1) << 1) - 1), v, a)
 
 #define TEST_SRLWX(n, v, a) \
-  TEST_VX_OP(n, vnsrl.wx, ((v) & ((1 << (__riscv_vsew-1) << 1) - 1)) >> (a), v, a)
+  TEST_N_VX_OP(n, vnsrl.wx, ((v) >> (a)) & ((1 << (__riscv_vsew-1) << 1) - 1), v, a)
 
 #define TEST_SRLWI(n, v, a) \
-  TEST_VI_OP(n, vnsrl.wi, ((v) & ((1 << (__riscv_vsew-1) << 1) - 1)) >> (a), v, a)	
+  TEST_N_VI_OP(n, vnsrl.wi, ((v) >> (a)) & ((1 << (__riscv_vsew-1) << 1) - 1), v, a)	
 
 	
   #-------------------------------------------------------------
